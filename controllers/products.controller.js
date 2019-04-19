@@ -7,7 +7,6 @@ class ProductsController {
         });
     }
 
-    //TODO: Should be tested
     static updateProduct(req, res) {
         let product = req.body;
         productModel.findOneAndUpdate({
