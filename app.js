@@ -27,8 +27,10 @@ mongoose.connect(`mongodb+srv://${user}:${password}@cluster0-y8wr4.azure.mongodb
 
 //routers
 const productRouter = require("./routers/products.router");
+const crowdfundingRouter = require("./routers/crowdfunding.router");
 
 app.use("/", productRouter);
+app.use("/", crowdfundingRouter);
 
 const server = app.listen(port, () => {
     console.log(`PID = ${pid}`);
