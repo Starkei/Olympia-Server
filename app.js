@@ -1,11 +1,18 @@
 const env = require("dotenv");
 const express = require("express");
+const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 //enable config
 env.config();
 
 const app = express();
+
+//middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 //process variables
 const port = process.env.PORT || 8080;
@@ -17,36 +24,26 @@ mongoose.connect(`mongodb+srv://${user}:${password}@cluster0-y8wr4.azure.mongodb
     useNewUrlParser: true
 });
 
-mongoose.connection.on("open", () => {
-    console.log("connected");
-});
-
 //routers
 const productRouter = require("./routers/products.router");
 
 app.use("/", productRouter);
 
-const server = app.listen(port, () => {
-    console.log(`server has been started on port ${port}`);
-});
+const server = app.listen(port);
 
 process.on("SIGINT", () => {
-    console.log("disconnect DB");
     mongoose.disconnect();
-    console.log("close server");
     server.close();
 });
 
 process.on("SIGTERM", () => {
-    console.log("disconnect DB");
     mongoose.disconnect();
-    console.log("close server");
     server.close();
 });
 
 process.on("exit", () => {
-    console.log("disconnect DB");
     mongoose.disconnect();
-    console.log("close server");
     server.close();
 });
+
+module.exports = app;
