@@ -1,6 +1,6 @@
 # Olympia Server
 
-Olympia-Server is a REST server written in js, using fremework "express" and ODM "mongoose", will be used in Olympia-Client
+Olympia-Server is a REST server written on js, using fremework "express" and ODM "mongoose", will be used in Olympia-Client
 
 ## Installation
 
