@@ -2,6 +2,7 @@ const env = require("dotenv");
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const pid = process.pid;
 
 //enable config
 env.config();
@@ -29,7 +30,9 @@ const productRouter = require("./routers/products.router");
 
 app.use("/", productRouter);
 
-const server = app.listen(port);
+const server = app.listen(port, () => {
+    console.log(`PID = ${pid}`);
+});
 
 process.on("SIGINT", () => {
     mongoose.disconnect();
