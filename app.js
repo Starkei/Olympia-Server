@@ -33,12 +33,17 @@ mongoose.connect(
 //routers
 const productRouter = require("./routers/products.router");
 const crowdfundingRouter = require("./routers/crowdfunding.router");
+const userRouter = require("./routers/user.router");
+const newsRouter = require("./routers/news.router");
 const sportRouter = require("./routers/sport.router");
+const trainingRouter = require("./routers/training.router");
 const eventRouter = require("./routers/event.router");
-
+app.use("/", sportRouter);
 app.use("/", productRouter);
 app.use("/", crowdfundingRouter);
-app.use("/", sportRouter);
+app.use("/", userRouter);
+app.use("/", newsRouter);
+app.use("/", trainingRouter);
 app.use("/", eventRouter);
 
 const server = app.listen(port, () => {
