@@ -1,60 +1,30 @@
 const productModel = require("../models/product");
-const types = require("mongoose").Types;
-class ProductsController {
-    static getProducts(req, res) {
-        productModel.find((err, data) => {
-            ProductsController.sendData(res, err, data);
-        });
+const CRUDController = require("./CRUD.controller");
+class ProductsController extends CRUDController {
+
+    constructor() {
+        super(productModel);
     }
 
-    static updateProduct(req, res) {
-        let product = req.body;
-        productModel.findOneAndUpdate({
-            _id: product._id
-        }, product, {
-            useFindAndModify: false
-        }, (err, data) => {
-            ProductsController.sendData(res, err, data);
-        });
+    getProducts(req, res) {
+        return super.getAll(req, res);
     }
 
-    static getProductById(req, res) {
-
-        let _id = req.params._id;
-        productModel.findOne({
-            _id
-        }, (err, data) => {
-            ProductsController.sendData(res, err, data);
-        });
+    updateProduct(req, res) {
+        return super.update(req, res);
     }
 
-    static addProduct(req, res) {
-        let product = new productModel(req.body);
-        product._id = new types.ObjectId();
-        product.save();
-        res.status(200).send({
-            message: "successful"
-        });
+    getProductById(req, res) {
+        return super.getById(req, res);
     }
 
-    static deleteProduct(req, res) {
-        let _id = req.query._id;
-        productModel.deleteOne({
-            _id
-        }, (err) => {
-            if (err) res.send(err);
-            else
-                res.status(200).send({
-                    message: "successful"
-                });
-        })
+    addProduct(req, res) {
+        return super.save(req, res);
     }
 
-    static sendData(res, err, data) {
-        if (err) res.status(404).send(err);
-        res.status(200).send(data);
+    deleteProduct(req, res) {
+        return super.delete(req, res);
     }
-
 }
 
 module.exports = ProductsController;
