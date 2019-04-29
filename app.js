@@ -36,11 +36,13 @@ const crowdfundingRouter = require("./routers/crowdfunding.router");
 const userRouter = require("./routers/user.router");
 const newsRouter = require("./routers/news.router");
 const sportRouter = require("./routers/sport.router");
+const trainingRouter = require("./routers/training.router");
 app.use("/", sportRouter);
 app.use("/", productRouter);
 app.use("/", crowdfundingRouter);
 app.use("/", userRouter);
 app.use("/", newsRouter);
+app.use("/", trainingRouter);
 
 const server = app.listen(port, () => {
   console.log(`PID = ${pid}`);
