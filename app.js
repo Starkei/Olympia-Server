@@ -35,7 +35,8 @@ const productRouter = require("./routers/products.router");
 const crowdfundingRouter = require("./routers/crowdfunding.router");
 const userRouter = require("./routers/user.router");
 const newsRouter = require("./routers/news.router");
-
+const sportRouter = require("./routers/sport.router");
+app.use("/", sportRouter);
 app.use("/", productRouter);
 app.use("/", crowdfundingRouter);
 app.use("/", userRouter);
