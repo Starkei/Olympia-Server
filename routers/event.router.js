@@ -2,7 +2,7 @@ const router = require("express").Router();
 const EventController = require("../controllers/event.controller");
 const eventController = new EventController();
 
-router.get("/events", eventController.getAllEvents.bind(eventController));
+router.get("/events", eventController.getAllEvent.bind(eventController));
 router.get("/events/:_id", eventController.getEventById.bind(eventController));
 router.put("/events/:_id", eventController.updateEvent.bind(eventController));
 router.delete(

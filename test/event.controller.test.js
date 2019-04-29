@@ -11,7 +11,6 @@ describe("Event", () => {
   describe("POST /", () => {
     it("should add new event and return 200", done => {
       let event = {
-        _id: mongoose.Types.ObjectId,
         address: "ул. Гикало 9",
         description: "Мужские пробежки под луной.Только для программистов.",
         image: "http://storage/lohimage",

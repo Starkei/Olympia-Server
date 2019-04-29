@@ -10,7 +10,7 @@ class EventController extends CRUDController {
     return super.save(req, res);
   }
 
-  getAllEvents(req, res) {
+  getAllEvent(req, res) {
     return super.getAll(req, res);
   }
 
