@@ -36,7 +36,7 @@ describe("Products", () => {
     });
 
     describe("GET /", () => {
-        it("should get all students record", done => {
+        it("should get all products record", done => {
             chai
                 .request(app)
                 .get("/products")
@@ -48,7 +48,6 @@ describe("Products", () => {
         });
 
         it("should get product by id", done => {
-            console.log(postedProductId);
             chai
                 .request(app)
                 .get(`/product/${postedProductId}`)
