@@ -2,6 +2,7 @@ const env = require("dotenv");
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const pid = process.pid;
 
 //enable config
 env.config();
@@ -26,10 +27,14 @@ mongoose.connect(`mongodb+srv://${user}:${password}@cluster0-y8wr4.azure.mongodb
 
 //routers
 const productRouter = require("./routers/products.router");
+const crowdfundingRouter = require("./routers/crowdfunding.router");
 
 app.use("/", productRouter);
+app.use("/", crowdfundingRouter);
 
-const server = app.listen(port);
+const server = app.listen(port, () => {
+    console.log(`PID = ${pid}`);
+});
 
 process.on("SIGINT", () => {
     mongoose.disconnect();
