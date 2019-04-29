@@ -1,10 +1,10 @@
-const userModel = require("../models/trainings");
+const trainingModel = require("../models/trainings");
 const CRUDController = require("./CRUD.controller");
 const types = require("mongoose").Types;
 
 class TrainingController extends CRUDController {
   constructor() {
-    super(userModel);
+    super(trainingModel);
   }
 
   getAllTraining(req, res) {
