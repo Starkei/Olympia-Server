@@ -1,4 +1,4 @@
-const userModel = require("../models/chat");
+const chatModel = require("../models/chats");
 const CRUDController = require("./CRUD.controller");
 
 class ChatController extends CRUDController {
@@ -10,7 +10,7 @@ class ChatController extends CRUDController {
     super.getAll(req, res);
   }
 
-  getvById(req, res) {
+  getChatById(req, res) {
     super.getById(req, res);
   }
 
