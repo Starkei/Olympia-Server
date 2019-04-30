@@ -13,6 +13,10 @@ class CRUDController {
         });
     }
 
+    getAllWithPagination(req, res) {
+        throw new Error("Implement this");
+    }
+
     getById(req, res) {
         let _id = req.params._id;
         this.model.findOne({
@@ -22,6 +26,14 @@ class CRUDController {
             else
                 res.status(200).send(data);
         });
+    }
+
+    getFilteredData(req, res) {
+        throw new Error("Implement this");
+    }
+
+    getFilteredDataWithPagination(req, res) {
+        throw new Error("Implement this");
     }
 
     update(req, res) {
@@ -53,6 +65,10 @@ class CRUDController {
             data._id = types.ObjectId();
         data.save();
         res.status(200).send(data);
+    }
+
+    saveMany(req, res) {
+        throw new Error("Implement this");
     }
 }
 
