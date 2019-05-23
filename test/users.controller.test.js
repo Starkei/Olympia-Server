@@ -5,92 +5,93 @@ const app = require("../app");
 chai.use(chaiHttp);
 chai.should();
 
-describe("Products", () => {
-  let postedProductId = "";
-  let postedProductData = {};
+describe("Users", () => {
+  let postedObject = {};
 
   describe("POST /", () => {
-    it("should add product", done => {
-      let productData = {
-        type: ["Одежда"],
-        currency: "бел.руб",
-        description:
-          "Шорты женские Smmash – лучший вариант для стильных девушек, подойдут для занятий фитнесом, кросс-фитом и просто для занятий в зале.",
-        firm: "Smash",
-        image:
-          "http://bigsport.by/userfiles/shop/large_shop/21206_shorty-smmash-zhenskie-23021.jpeg",
-        price: 123,
-        title: "Шорты Smash (Женские) 23021"
+    it("should add new user and return 200", done => {
+      let user = {
+        about: "Хороший мальчик",
+        chatId: "VRZNq8iKqZWDWO1En90z",
+        contacts: ["hk2UAHAlfAZFk6Dy1NGAq5NJQmc2"],
+        dateBirth: "December 17, 1995 03:24:00",
+        displayName: "Alex",
+        email: "test@mail.ru",
+        phone: 1317500,
+        photoURL: "img",
+        role: "Admin",
+        sex: "Man",
+        UserName: "Alex"
       };
+
       chai
         .request(app)
-        .post("/product")
-        .send(productData)
+        .post("/user")
+        .send(user)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("object");
-          postedProductData = res.body;
-          postedProductId = res.body._id;
-          delete postedProductData._id;
+          postedObject = res.body;
           done();
         });
     });
   });
-
   describe("GET /", () => {
-    it("should get all products record", done => {
+    it("should get all user record and return 200", done => {
       chai
         .request(app)
-        .get("/products")
+        .get("/user")
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("array");
           done();
         });
     });
-
-    it("should get product by id", done => {
+    it("should get user by id and return 200", done => {
+      let _id = postedObject._id;
       chai
         .request(app)
-        .get(`/product/${postedProductId}`)
+        .get(`/user/${_id}`)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("object");
           done();
         });
     });
-
-    it("should not get product by id and return 404", done => {
+    it("should not get user by id and return 404", done => {
       let _id = "empty";
       chai
         .request(app)
-        .get(`/product/${_id}`)
+        .get(`/user/${_id}`)
         .end((err, res) => {
           res.should.have.status(404);
           done();
         });
     });
   });
-
   describe("PUT /", () => {
-    it("should update product by id", done => {
-      postedProductData.firm = "Sash";
+    it("should update user and return 200", done => {
+      let _id = postedObject._id;
+      delete postedObject._id;
+
       chai
         .request(app)
-        .put(`/product/${postedProductId}`)
-        .send(postedProductData)
+        .get(`/user/${_id}`)
+        .send(postedObject)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("object");
+          postedObject._id = _id;
           done();
         });
     });
-    it("should not update product by id and return 404", done => {
+    it("should not update user and return 404", done => {
       let _id = "empty";
+
       chai
         .request(app)
-        .get(`/product/${_id}`)
-        .send(postedProductData)
+        .get(`/user/${_id}`)
+        .send(postedObject)
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.be.a("object");
@@ -98,22 +99,22 @@ describe("Products", () => {
         });
     });
   });
-
   describe("DELETE /", () => {
-    it("should delete product by id", done => {
+    it("should delete user and return 200", done => {
+      let _id = postedObject._id;
       chai
         .request(app)
-        .delete(`/product/${postedProductId}`)
+        .delete(`/user/${_id}`)
         .end((err, res) => {
           res.should.have.status(200);
           done();
         });
     });
-    it("should not delete product by id and return 404", done => {
+    it("should not delete user and return 404", done => {
       let _id = "empty";
       chai
         .request(app)
-        .delete(`/product/${_id}`)
+        .delete(`/user/${_id}`)
         .end((err, res) => {
           res.should.have.status(404);
           done();
