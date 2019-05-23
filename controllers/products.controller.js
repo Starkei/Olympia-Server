@@ -6,20 +6,46 @@ class ProductsController extends CRUDController {
         super(productModel);
     }
 
-    getProducts(req, res) {
-        return super.getAll(req, res);
-    }
-
     updateProduct(req, res) {
-        return super.update(req, res);
+        let _id = req.params._id;
+        let productData = req.body;
+        if (!productData)
+            res.status(400).send(productData);
+        this.model.findOneAndUpdate({
+            _id
+        }, productData, (err, data) => {
+            if (err)
+                res.status(404).send(err);
+            res.status(200).send(data);
+        });
     }
 
-    getProductById(req, res) {
-        return super.getById(req, res);
-    }
-
+    /**
+     *
+     * Save product to database
+     * @param {*} req
+     * @param {*} res - res.body should be filled
+     * @memberof ProductsController
+     */
     addProduct(req, res) {
-        return super.save(req, res);
+        //send status bad request and err message if req.body is empty
+        if (!req.body)
+            res.status(400).send({
+                message: "req.body should be not empty"
+            });
+
+        let data = req.body;
+        if (this.model.dataIsValid(data)) {
+
+        }
+
+        let product = new this.model(req.body);
+        product.save((err) => {
+            if (err)
+                res.status(400).send(err);
+            else
+                res.sendStatus(200);
+        });
     }
 
     deleteProduct(req, res) {
