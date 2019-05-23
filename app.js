@@ -23,12 +23,9 @@ const password = process.env.DB_PASSWORD;
 const user = process.env.DB_USER;
 
 //database
-mongoose.connect(
-  `mongodb+srv://${user}:${password}@cluster0-y8wr4.azure.mongodb.net/olympia?retryWrites=true`,
-  {
-    useNewUrlParser: true
-  }
-);
+mongoose.connect(`mongodb+srv://${user}:${password}@cluster0-y8wr4.azure.mongodb.net/olympia?retryWrites=true`, {
+  useNewUrlParser: true
+});
 
 //routers
 const productRouter = require("./routers/products.router");
@@ -37,12 +34,14 @@ const userRouter = require("./routers/user.router");
 const newsRouter = require("./routers/news.router");
 const sportRouter = require("./routers/sport.router");
 const trainingRouter = require("./routers/training.router");
+const adwareRouter = require("./routers/adware.router");
 app.use("/", sportRouter);
 app.use("/", productRouter);
 app.use("/", crowdfundingRouter);
 app.use("/", userRouter);
 app.use("/", newsRouter);
 app.use("/", trainingRouter);
+app.use("/", adwareRouter);
 
 const server = app.listen(port, () => {
   console.log(`PID = ${pid}`);
