@@ -29,4 +29,4 @@ class AdwareController extends CRUDController {
 
 }
 
-module.exports = CrowdfundingController;
+module.exports = AdwareController;
