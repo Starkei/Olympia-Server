@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
   role: String,
   sex: String,
   userName: String,
+  sports: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "sports"
+  }],
   adware: [{
     type: mongoose.SchemaTypes.ObjectId,
     ref: "adware"
