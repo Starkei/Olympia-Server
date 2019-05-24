@@ -34,10 +34,14 @@ class ProductsController extends CRUDController {
                 message: "req.body should be not empty"
             });
 
-        let data = req.body;
-        if (this.model.dataIsValid(data)) {
+        if (!req.body.user)
+            res.status(400).send({
+                message: "req.body.userId should be not empty"
+            });
 
-        }
+        let data = req.body;
+
+        //TODO: Validate data
 
         let product = new this.model(req.body);
         product.save((err) => {
