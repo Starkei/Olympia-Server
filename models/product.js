@@ -8,6 +8,10 @@ const productSchema = new mongoose.Schema({
     price: Number,
     title: String,
     type: Array,
+    adware: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "adware"
+    },
     user: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "products"

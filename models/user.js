@@ -12,7 +12,11 @@ const userSchema = new mongoose.Schema({
   photoURL: String,
   role: String,
   sex: String,
-  UserName: String,
+  userName: String,
+  adware: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "adware"
+  }],
   products: [{
     type: mongoose.SchemaTypes.ObjectId,
     ref: "products"
