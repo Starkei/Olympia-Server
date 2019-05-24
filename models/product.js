@@ -11,6 +11,10 @@ const productSchema = new mongoose.Schema({
     adware: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "adware"
+    },
+    user: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "products"
     }
 });
 
