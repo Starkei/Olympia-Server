@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
   role: String,
   sex: String,
   userName: String,
+  crowdfunding: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "crowdfunding"
+  }],
   sports: [{
     type: mongoose.SchemaTypes.ObjectId,
     ref: "sports"

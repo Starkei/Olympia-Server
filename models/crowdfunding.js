@@ -9,7 +9,11 @@ const crowdfundingSchema = new mongoose.Schema({
     price: Number,
     title: String,
     type: Array,
-    usage: Array
+    usage: Array,
+    user: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "users"
+    }
 
 });
 
