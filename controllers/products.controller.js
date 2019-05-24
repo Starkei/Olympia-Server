@@ -1,5 +1,6 @@
 const productModel = require("../models/product");
 const productTypeModel = require("..//models/productTypes");
+const mongoose = require("mongoose");
 const CRUDController = require("./CRUD.controller");
 
 class ProductsController extends CRUDController {
@@ -67,10 +68,11 @@ class ProductsController extends CRUDController {
 
   postProductTypes(req, res) {
     let type = new productTypeModel(req.body);
+    type._id = mongoose.Types.ObjectId();
+
     type.save(err => {
       if (err) res.status(400).send(err);
-      else res.sendStatus(200);
-    })
+    });
   }
 }
 
