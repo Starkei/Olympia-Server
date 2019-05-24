@@ -18,6 +18,10 @@ const sportSchema = new mongoose.Schema({
     type: Array,
     contraindication: Array,
     phoneNumbers: Array,
+    user: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "users"
+    }
 });
 
 const sportModel = mongoose.model("sports", sportSchema);
