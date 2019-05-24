@@ -1,60 +1,56 @@
 const productModel = require("../models/product");
-const types = require("mongoose").Types;
-class ProductsController {
-    static getProducts(req, res) {
-        productModel.find((err, data) => {
-            ProductsController.sendData(res, err, data);
-        });
+const CRUDController = require("./CRUD.controller");
+class ProductsController extends CRUDController {
+
+    constructor() {
+        super(productModel);
     }
 
-    static updateProduct(req, res) {
-        let product = req.body;
-        productModel.findOneAndUpdate({
-            _id: product._id
-        }, product, {
-            useFindAndModify: false
-        }, (err, data) => {
-            ProductsController.sendData(res, err, data);
-        });
-    }
-
-    static getProductById(req, res) {
-
+    updateProduct(req, res) {
         let _id = req.params._id;
-        productModel.findOne({
+        let productData = req.body;
+        if (!productData)
+            res.status(400).send(productData);
+        this.model.findOneAndUpdate({
             _id
-        }, (err, data) => {
-            ProductsController.sendData(res, err, data);
+        }, productData, (err, data) => {
+            if (err)
+                res.status(404).send(err);
+            res.status(200).send(data);
         });
     }
 
-    static addProduct(req, res) {
-        let product = new productModel(req.body);
-        product._id = new types.ObjectId();
-        product.save();
-        res.status(200).send({
-            message: "successful"
-        });
-    }
+    /**
+     *
+     * Save product to database
+     * @param {*} req
+     * @param {*} res - res.body should be filled
+     * @memberof ProductsController
+     */
+    addProduct(req, res) {
+        //send status bad request and err message if req.body is empty
+        if (!req.body)
+            res.status(400).send({
+                message: "req.body should be not empty"
+            });
 
-    static deleteProduct(req, res) {
-        let _id = req.query._id;
-        productModel.deleteOne({
-            _id
-        }, (err) => {
-            if (err) res.send(err);
+        let data = req.body;
+        if (this.model.dataIsValid(data)) {
+
+        }
+
+        let product = new this.model(req.body);
+        product.save((err) => {
+            if (err)
+                res.status(400).send(err);
             else
-                res.status(200).send({
-                    message: "successful"
-                });
-        })
+                res.sendStatus(200);
+        });
     }
 
-    static sendData(res, err, data) {
-        if (err) res.status(404).send(err);
-        res.status(200).send(data);
+    deleteProduct(req, res) {
+        return super.delete(req, res);
     }
-
 }
 
 module.exports = ProductsController;
