@@ -16,6 +16,18 @@ const userSchema = new mongoose.Schema({
   crowdfunding: [{
     type: mongoose.SchemaTypes.ObjectId,
     ref: "crowdfunding"
+  }],
+  sports: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "sports"
+  }],
+  adware: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "adware"
+  }],
+  products: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "products"
   }]
 });
 
