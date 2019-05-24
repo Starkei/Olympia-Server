@@ -12,7 +12,11 @@ const userSchema = new mongoose.Schema({
   photoURL: String,
   role: String,
   sex: String,
-  UserName: String
+  UserName: String,
+  products: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "products"
+  }]
 });
 
 const userModel = mongoose.model("users", userSchema);
