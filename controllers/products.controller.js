@@ -1,5 +1,7 @@
 const productModel = require("../models/product");
+const productTypeModel = require("..//models/productTypes");
 const CRUDController = require("./CRUD.controller");
+
 class ProductsController extends CRUDController {
   constructor() {
     super(productModel);
@@ -9,8 +11,7 @@ class ProductsController extends CRUDController {
     let _id = req.params._id;
     let productData = req.body;
     if (!productData) res.status(400).send(productData);
-    this.model.findOneAndUpdate(
-      {
+    this.model.findOneAndUpdate({
         _id
       },
       productData,
@@ -55,7 +56,14 @@ class ProductsController extends CRUDController {
     return super.delete(req, res);
   }
 
-  getAllProductTypes(req, res) {}
+  getAllProductTypes(req, res) {
+    productTypeModel.find((err, data) => {
+      if (err) res.status(400).send(err);
+      else {
+        res.send(data);
+      }
+    });
+  }
 }
 
 module.exports = ProductsController;
