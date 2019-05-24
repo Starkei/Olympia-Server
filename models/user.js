@@ -16,6 +16,14 @@ const userSchema = new mongoose.Schema({
   sports: [{
     type: mongoose.SchemaTypes.ObjectId,
     ref: "sports"
+  }],
+  adware: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "adware"
+  }],
+  products: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "products"
   }]
 });
 
