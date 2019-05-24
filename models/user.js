@@ -12,7 +12,11 @@ const userSchema = new mongoose.Schema({
   photoURL: String,
   role: String,
   sex: String,
-  UserName: String
+  userName: String,
+  crowdfunding: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "crowdfunding"
+  }]
 });
 
 const userModel = mongoose.model("users", userSchema);
