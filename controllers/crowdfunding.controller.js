@@ -1,6 +1,5 @@
 const CrowdfundingModel = require("../models/crowdfunding");
 const CRUDController = require("./CRUD.controller");
-const types = require("mongoose").Types;
 
 class CrowdfundingController extends CRUDController {
 
