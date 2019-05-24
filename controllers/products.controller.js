@@ -64,6 +64,14 @@ class ProductsController extends CRUDController {
       }
     });
   }
+
+  postProductTypes(req, res) {
+    let type = new productTypeModel(req.body);
+    type.save(err => {
+      if (err) res.status(400).send(err);
+      else res.sendStatus(200);
+    })
+  }
 }
 
 module.exports = ProductsController;
