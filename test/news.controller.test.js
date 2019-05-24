@@ -5,92 +5,88 @@ const app = require("../app");
 chai.use(chaiHttp);
 chai.should();
 
-describe("Products", () => {
-  let postedProductId = "";
-  let postedProductData = {};
+describe("News", () => {
+  let postedObject = {};
 
   describe("POST /", () => {
-    it("should add product", done => {
-      let productData = {
-        type: ["Одежда"],
-        currency: "бел.руб",
+    it("should add new news and return 200", done => {
+      let news = {
         description:
-          "Шорты женские Smmash – лучший вариант для стильных девушек, подойдут для занятий фитнесом, кросс-фитом и просто для занятий в зале.",
-        firm: "Smash",
-        image:
-          "http://bigsport.by/userfiles/shop/large_shop/21206_shorty-smmash-zhenskie-23021.jpeg",
-        price: 123,
-        title: "Шорты Smash (Женские) 23021"
+          "Волейболистки «Минчанки» потерпели 15-е поражение со старта суперлиги открытого чемпионата России.",
+        image: "img",
+        title:
+          "Волейболистки «Минчанки» потерпели 15-е поражение в российской суперлиге",
+        type: "Спорт"
       };
+
       chai
         .request(app)
-        .post("/product")
-        .send(productData)
+        .post("/news")
+        .send(news)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("object");
-          postedProductData = res.body;
-          postedProductId = res.body._id;
-          delete postedProductData._id;
+          postedObject = res.body;
           done();
         });
     });
   });
-
   describe("GET /", () => {
-    it("should get all products record", done => {
+    it("should get all news record and return 200", done => {
       chai
         .request(app)
-        .get("/products")
+        .get("/news")
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("array");
           done();
         });
     });
-
-    it("should get product by id", done => {
+    it("should get news by id and return 200", done => {
+      let _id = postedObject._id;
       chai
         .request(app)
-        .get(`/product/${postedProductId}`)
+        .get(`/news/${_id}`)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("object");
           done();
         });
     });
-
-    it("should not get product by id and return 404", done => {
+    it("should not get news by id and return 404", done => {
       let _id = "empty";
       chai
         .request(app)
-        .get(`/product/${_id}`)
+        .get(`/news/${_id}`)
         .end((err, res) => {
           res.should.have.status(404);
           done();
         });
     });
   });
-
   describe("PUT /", () => {
-    it("should update product by id", done => {
-      postedProductData.firm = "Sash";
+    it("should update news and return 200", done => {
+      let _id = postedObject._id;
+      delete postedObject._id;
+
       chai
         .request(app)
-        .put(`/product/${postedProductId}`)
-        .send(postedProductData)
+        .get(`/news/${_id}`)
+        .send(postedObject)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("object");
+          postedObject._id = _id;
           done();
         });
     });
-    it("should not update product by id and return 404", done => {
+    it("should not update news and return 404", done => {
       let _id = "empty";
+
       chai
         .request(app)
-        .get(`/product/${_id}`)
-        .send(postedProductData)
+        .get(`/news/${_id}`)
+        .send(postedObject)
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.be.a("object");
@@ -98,22 +94,22 @@ describe("Products", () => {
         });
     });
   });
-
   describe("DELETE /", () => {
-    it("should delete product by id", done => {
+    it("should delete news and return 200", done => {
+      let _id = postedObject._id;
       chai
         .request(app)
-        .delete(`/product/${postedProductId}`)
+        .delete(`/news/${_id}`)
         .end((err, res) => {
           res.should.have.status(200);
           done();
         });
     });
-    it("should not delete product by id and return 404", done => {
+    it("should not delete news and return 404", done => {
       let _id = "empty";
       chai
         .request(app)
-        .delete(`/product/${_id}`)
+        .delete(`/news/${_id}`)
         .end((err, res) => {
           res.should.have.status(404);
           done();
