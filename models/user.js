@@ -12,7 +12,11 @@ const userSchema = new mongoose.Schema({
   photoURL: String,
   role: String,
   sex: String,
-  UserName: String
+  UserName: String,
+  adware: [{
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "adware"
+  }]
 });
 
 const userModel = mongoose.model("users", userSchema);

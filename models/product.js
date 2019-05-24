@@ -7,7 +7,11 @@ const productSchema = new mongoose.Schema({
     image: String,
     price: Number,
     title: String,
-    type: Array
+    type: Array,
+    adware: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "adware"
+    }
 });
 
 const productModel = mongoose.model("products", productSchema);
